@@ -1,13 +1,14 @@
 class Knight
   attr_reader :position
   attr_accessor :children, :parent
-
+  # You are basically creating a node.
   def initialize(position, parent = nil)
     @position = position
     @children = []
     @parent = parent
   end
-
+  # This method loops through the moves and if they fall within a certain range
+  # they are added to an array.
   def next_moves
     result = []
     moves = [[2, 1], [1, 2], [2, -1], [1, -2], [-2, 1], [-1, 2], [-2, -1], [-1, -2]]
@@ -23,7 +24,9 @@ end
 class ChessBoard
   
   #def initialize;end
-
+  
+  # This method checks if the start and finish positions fall within a certain range,
+  # if they do they are then sent to another method.
   def knight_moves(start, finish)
     start_array = []
     finish_array = []
@@ -43,10 +46,9 @@ class ChessBoard
         return puts 'Choose a number between 0 and 7'
       end
     end
-
     bfs(start_array, finish_array)
   end
-
+  # This is a Breadth First Search method.
   def bfs(start, finish, path = [], queue = [])
     current = Knight.new(start)
     until current.position == finish
@@ -59,7 +61,7 @@ class ChessBoard
     display_path(current, path, start)
     print_knight_moves(path)
   end
-
+  # This method stores the path you took into an array.
   def display_path(current, path, start)
     until current.position == start
       path.push(current.position)
@@ -67,7 +69,7 @@ class ChessBoard
     end
     path.push(current.position)
   end
-
+  # This method checks how many moves you made and prints the corresponding message.
   def print_knight_moves(path)
     if (path.size- 1) < 1
       puts "Your starting and finishing positions were the same. You didn't need to move."
